@@ -4,3 +4,14 @@ In this project, we have to implement:
 - 1 community server
 - 3 community assistants
 - a scenario
+
+Using jacamo, it can be translated as follows:
+- 3 artifacts of types: (Community servers)
+    -Sharing information:
+        -Mailbox
+        -Forum
+        -Moderated Forum
+        -Twitter Form
+    -Voting community
+- Workspace (Community server)
+- 3 Agents (Commmunity assistants)
