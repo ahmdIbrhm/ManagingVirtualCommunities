@@ -7,11 +7,11 @@ In this project, we have to implement:
 
 Using jacamo, it can be translated as follows:
 - 3 artifacts of types: (Community servers)
-    -Sharing information:
-        -Mailbox
-        -Forum
-        -Moderated Forum
-        -Twitter Form
-    -Voting community
+    1-Sharing information:
+        1.1-Mailbox
+        1.2-Forum
+        1.3-Moderated Forum
+        1.4-Twitter Form
+    2-Voting community
 - Workspace (Community server)
 - 3 Agents (Commmunity assistants)
