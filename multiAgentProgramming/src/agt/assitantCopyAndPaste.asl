@@ -1,4 +1,4 @@
-// Agent sample_agent in project multiAgentProgramming
+// Agent communityAssitant_Ahmad in project multiAgentProgramming
 
 /* Initial beliefs and rules */
 
