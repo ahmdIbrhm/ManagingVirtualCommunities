@@ -4,11 +4,17 @@
 
 /* Initial goals */
 
-!start.
+
+!setup_and_monitor.
 
 /* Plans */
 
-+!start : true <- .print("hello world.").
++!setup_and_monitor
+	<-    createWorkspace("server");
+			joinWorkspace("server",Id);
+			!setupArtifacts.
+
++!setupArtifacts <- makeArtifact("ahmad", "gui.GUIArtifact",[],Id);focus(Id);print(Id).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

@@ -6,12 +6,16 @@ import cartago.Artifact;
 import users.User;
 
 public class Community extends Artifact {
+
 	 private int communityId;
 	 private String name;
 	 private User createdBy; 
 	 private ArrayList <User> members; 
 	 private ArrayList <String> topics;
-	
+	 public Community()
+	 {
+		 
+	 }
 	 public Community(int communityId, String name, User createdBy,ArrayList<String> topics) 
 	 {
 		this.communityId = communityId;

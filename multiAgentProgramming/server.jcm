@@ -13,10 +13,6 @@
 */
 
 mas multiAgentProgramming {
-
-    agent sample_agent
-
-    
-
+	agent assistantCopyAndPaste
 }
 
