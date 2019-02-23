@@ -9,6 +9,7 @@
 /* Plans */
 
 +!start : true <- .print("hello world.").
++!community <- print("Hello").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
