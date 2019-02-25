@@ -1,13 +1,10 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -15,6 +12,9 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Interface extends JFrame {
 
@@ -84,6 +84,16 @@ public class Interface extends JFrame {
 		comboBox.setSelectedIndex(-1);
 		comboBox.setBounds(150, 179, 128, 20);
 		contentPane.add(comboBox);
+		
+		JButton btnSignUp = new JButton("Sign up");
+		btnSignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MainClass mainClass=new MainClass();
+				mainClass.setVisible(true);
+			}
+		});
+		btnSignUp.setBounds(303, 227, 89, 23);
+		contentPane.add(btnSignUp);
 		
 		
 	}

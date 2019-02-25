@@ -1,5 +1,5 @@
 package servers;
 
-public class CommunitiesManager {
 
+public class CommunitiesManager {
 }
