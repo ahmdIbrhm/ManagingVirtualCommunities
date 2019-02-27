@@ -15,6 +15,7 @@ import javax.swing.JDialog;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
 
 public class MainClass extends JFrame {
 
@@ -47,11 +48,15 @@ public class MainClass extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		final JLabel label1 = new JLabel("label");
-		label1.setBounds(144, 138, 161, 48);
-		contentPane.add(label1);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(0, 11, 434, 214);
+		contentPane.add(tabbedPane);
+		
+		JPanel panel = new JPanel();
+		tabbedPane.addTab("Communities", null, panel, null);
 		
 		JButton btnCreateCommunity = new JButton("Create Community");
+		btnCreateCommunity.setBounds(102, 5, 173, 23);
 		btnCreateCommunity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Object[] options = new Object[] {};
@@ -68,10 +73,11 @@ public class MainClass extends JFrame {
 					
 					public void actionPerformed(ActionEvent e) {
 						String selected=comboBoxCommunityType.getSelectedItem().toString();
-						label1.setText(selected);
+
 						if(selected.equals("Mailbox"))
 						{
-							
+							CreateMailboxCommunityInterface gui=new CreateMailboxCommunityInterface();
+							gui.setVisible(true);
 						}
 						else if(selected.equals("Forum"))
 						{
@@ -102,8 +108,33 @@ public class MainClass extends JFrame {
 //						create.show()
 			}
 		});
-		btnCreateCommunity.setBounds(29, 104, 173, 23);
-		contentPane.add(btnCreateCommunity);
+		panel.setLayout(null);
+		panel.add(btnCreateCommunity);
+		
+		JButton btnShowCommunities = new JButton("Show Communities");
+		btnShowCommunities.setBounds(102, 50, 173, 23);
+		panel.add(btnShowCommunities);
+		
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("Profile", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+		JButton btnMyCommunities = new JButton("My Communities");
+		btnMyCommunities.setBounds(134, 5, 135, 40);
+		panel_1.add(btnMyCommunities);
+		
+		JPanel panel_2 = new JPanel();
+		tabbedPane.addTab("Connection", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		JButton btnConnectToServer = new JButton("Connect to server");
+		btnConnectToServer.setBounds(35, 34, 154, 35);
+		panel_2.add(btnConnectToServer);
+		
+		JButton btnNewButton = new JButton("Disconnect from server");
+		btnNewButton.setBounds(200, 34, 144, 35);
+		panel_2.add(btnNewButton);
+		
 		
 
 	}
