@@ -9,10 +9,7 @@
 
 /* Plans */
 
-+!setup_and_monitor
-	<-    createWorkspace("server");
-			joinWorkspace("server",Id);
-			!setupArtifacts.
++!setup_and_monitor <-createWorkspace("server"); joinWorkspace("server",Id);!setupArtifacts.
 
 +!setupArtifacts <- makeArtifact("ahmad", "gui.GUIArtifact",[],Id);focus(Id);print(Id).
 

@@ -76,7 +76,7 @@ public class Interface extends JFrame {
 		contentPane.add(list);
 		
 		JLabel lblAssitant = new JLabel("Assitant: ");
-		lblAssitant.setBounds(75, 182, 46, 14);
+		lblAssitant.setBounds(47, 182, 92, 14);
 		contentPane.add(lblAssitant);
 		
 		JComboBox comboBox = new JComboBox();

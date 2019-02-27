@@ -1,5 +1,5 @@
 /*
-    multiAgentProgramming
+    helloworld
     ---------------------------
 
     JaCaMo Project File
@@ -11,8 +11,7 @@
     JaCaMo <VERSION>
     <DATE>
 */
-
-mas multiAgentProgramming {
-	agent serverAgent
+mas client {
+	agent clientAgent 
 }
 
