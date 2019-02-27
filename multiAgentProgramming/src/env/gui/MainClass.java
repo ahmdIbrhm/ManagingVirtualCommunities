@@ -5,6 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import javafx.geometry.VPos;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -84,6 +87,8 @@ public class MainClass extends JFrame {
 						}
 						else if((selected.equals("Voting")))
 						{
+							VotingGUI vote=new VotingGUI();
+							vote.setVisible(true);
 							
 						}
 						else
