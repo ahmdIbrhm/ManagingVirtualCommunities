@@ -19,11 +19,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 
-public class MainClass extends JFrame {
+public class MainInterface extends JFrame {
 
 	private JPanel contentPane;
 
-	public MainClass(final User user) {
+	public MainInterface(final User user) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -76,7 +76,8 @@ public class MainClass extends JFrame {
 						}
 						else if((selected.equals("Voting")))
 						{
-							
+							VotingGUI gui =new VotingGUI(user);
+							gui.setVisible(true);
 						}
 						else
 						{
