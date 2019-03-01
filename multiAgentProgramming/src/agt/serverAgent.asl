@@ -8,7 +8,7 @@
 /* Plans */
 +!setup_and_monitor <-createWorkspace("server"); joinWorkspace("server",Id);!setupArtifacts.
 +!setupArtifacts <- makeArtifact("manager", "servers.CommunitiesManager",[],Id);focus(Id).
-
++hi <- print("recieved hi").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

@@ -5,6 +5,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import communities.Community;
+import communities.Mailbox;
+import users.User;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -18,26 +23,7 @@ public class MainClass extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainClass frame = new MainClass();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public MainClass() {
+	public MainClass(final User user) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -73,7 +59,7 @@ public class MainClass extends JFrame {
 
 						if(selected.equals("Mailbox"))
 						{
-							CreateMailboxCommunityInterface gui=new CreateMailboxCommunityInterface();
+							CreateMailboxCommunityInterface gui=new CreateMailboxCommunityInterface(user);
 							gui.setVisible(true);
 						}
 						else if(selected.equals("Forum"))
@@ -123,11 +109,15 @@ public class MainClass extends JFrame {
 		panel_2.setLayout(null);
 		
 		JButton btnConnectToServer = new JButton("Connect to server");
-		btnConnectToServer.setBounds(35, 34, 154, 35);
+		btnConnectToServer.setBounds(10, 34, 182, 35);
 		panel_2.add(btnConnectToServer);
 		
 		JButton btnNewButton = new JButton("Disconnect from server");
-		btnNewButton.setBounds(200, 34, 144, 35);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton.setBounds(225, 34, 182, 35);
 		panel_2.add(btnNewButton);
 		
 		

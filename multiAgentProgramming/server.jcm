@@ -13,6 +13,6 @@
 */
 
 mas multiAgentProgramming {
-	agent serverAgent
+	agent clientAgent
 }
 

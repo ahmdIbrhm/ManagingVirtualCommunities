@@ -6,7 +6,7 @@ import java.util.Queue;
 import users.User;
 
 public class ModeratedForum extends SharingInformationService{
-	public ModeratedForum(int maximumNumberOfMessages, int messagesPeriod, int communityId, String name, User createdBy,ArrayList<String> topics) {
-		super(maximumNumberOfMessages,messagesPeriod,communityId,name,createdBy,topics);
+	public ModeratedForum(int maximumNumberOfMessages, int messagesPeriod, String communityId, User createdBy,String []topics) {
+		super(maximumNumberOfMessages,messagesPeriod,communityId,createdBy,topics);
 	}
 }

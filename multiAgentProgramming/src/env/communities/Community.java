@@ -3,28 +3,32 @@ package communities;
 import java.util.ArrayList;
 
 import cartago.Artifact;
+import cartago.OPERATION;
 import users.User;
 
 public class Community extends Artifact {
 
-	 private int communityId;
-	 private String name;
+	 private String communityId;
 	 private User createdBy; 
 	 private ArrayList <User> members; 
-	 private ArrayList <String> topics;
+	 private String[] topics;
 	 public Community()
 	 {
 		 
 	 }
-	 public Community(int communityId, String name, User createdBy,ArrayList<String> topics) 
+	 public Community(String communityId, User createdBy,String[] topics) 
 	 {
 		this.communityId = communityId;
-		this.name = name;
 		this.createdBy = createdBy;
 		members=new ArrayList<User>();
 		members.add(createdBy);
 		this.topics = topics;
 	}
+
+	 public void disconnect()
+	 {
+		 signal("disconnect");
+	 }
 	 
 	 
 //	 message board that captures the content of community

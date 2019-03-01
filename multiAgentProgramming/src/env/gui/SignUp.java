@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import users.User;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -14,12 +17,14 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
-public class Interface extends JFrame {
+public class SignUp extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField textFieldName;
+	public static String [] globalInterests= {"Football","Basketball","Tennis","VolleyBall"};
 
 	/**
 	 * Launch the application.
@@ -28,7 +33,7 @@ public class Interface extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Interface frame = new Interface();
+					SignUp frame = new SignUp();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +45,7 @@ public class Interface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Interface() {
+	public SignUp() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -52,18 +57,18 @@ public class Interface extends JFrame {
 		lblName.setBounds(75, 32, 46, 14);
 		contentPane.add(lblName);
 		
-		textField = new JTextField();
-		textField.setBounds(150, 32, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textFieldName = new JTextField();
+		textFieldName.setBounds(150, 32, 86, 20);
+		contentPane.add(textFieldName);
+		textFieldName.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Interests: ");
 		lblNewLabel.setBounds(75, 71, 64, 14);
 		contentPane.add(lblNewLabel);
 		
-		JList<String> list = new JList<String>();
+		final JList<String> list = new JList<String>();
 		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Football", "Basketball", "Tennis", "Volleyball"};
+			String[] values = globalInterests;
 			public int getSize() {
 				return values.length;
 			}
@@ -88,7 +93,15 @@ public class Interface extends JFrame {
 		JButton btnSignUp = new JButton("Sign up");
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MainClass mainClass=new MainClass();
+				String name=textFieldName.getText();
+				int [] interestsIndexes=list.getSelectedIndices();
+				String [] interests=new String [interestsIndexes.length];
+				for(int i=0;i<interests.length;i++)
+				{
+					interests[i]=globalInterests[interestsIndexes[i]];
+				}
+				User user=new User(name,interests);
+				MainClass mainClass=new MainClass(user);
 				mainClass.setVisible(true);
 			}
 		});
