@@ -101,7 +101,7 @@ public class SignUp extends JFrame {
 					interests[i]=globalInterests[interestsIndexes[i]];
 				}
 				User user=new User(name,interests);
-				MainClass mainClass=new MainClass(user);
+				MainInterface mainClass=new MainInterface(user);
 				mainClass.setVisible(true);
 			}
 		});
