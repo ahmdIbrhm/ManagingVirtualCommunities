@@ -17,9 +17,12 @@
 +focusEnterCommunity(UserName) <- makeArtifact("enterCommunities1","gui.EnterCommunityGUIArtifact",[UserName],Id7);focus(Id7).
 
 
-+focusEnterCommunityMailbox(CommunityId) <- makeArtifact("enterCommunityMailbox1","gui.AhmadsClass",[UserName],Id4);focus(Id4).
++focusEnterCommunityMailbox(CommunityId,UserName) <- makeArtifact("enterCommunityMailbox1","gui.EnterMailboxGUIArtifact",[UserName,CommunityId],Id4);focus(Id4).
 +focusEnterCommunityForum(CommunityId) <- makeArtifact("enterCommunityForum1","gui.AdnansClass",[UserName],Id5);focus(Id5).
 +focusEnterCommunityVoting(CommunityId) <- makeArtifact("enterCommunityVoting1","gui.ZemrounsClass",[UserName],Id6);focus(Id6).
+
+
++sendMessage(CommunityId,UserName,UserTo,Message)<-.send(serverAgent,tell,message(CommunityId,UserName,UserTo,Message)).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

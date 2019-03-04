@@ -20,8 +20,7 @@ public class User extends Artifact{
 	}
 	 @Override
 	public String toString() {
-		 return "Name: "+name+
-				 "\n Interests: "+interests;
+		 return name;
 	}
 	public String getName() {
 		return name;

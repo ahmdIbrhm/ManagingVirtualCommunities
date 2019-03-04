@@ -14,8 +14,6 @@ public class MainInterfaceGUIArtifact extends GUIArtifact {
 		linkActionEventToOp(display.btnShowCommunities,"showCommunities");
 		linkActionEventToOp(display.btnCreateMailbox,"createMailbox");
 		linkActionEventToOp(display.btnMyCommunities,"myCommunities");
-		
-		
 		display.setVisible(true);
 		this.init();
 	}

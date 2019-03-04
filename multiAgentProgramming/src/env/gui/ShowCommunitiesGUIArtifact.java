@@ -28,6 +28,7 @@ public class ShowCommunitiesGUIArtifact extends GUIArtifact {
 				CommunitiesManager.communities.get(i).getMembers().add(CommunitiesManager.getUser(name));
 				System.out.println(CommunitiesManager.communities.get(i).getMembers());
 				JOptionPane.showMessageDialog(display.contentPane,"Joined");
+				display.setVisible(false);
 			}
 		}
     }

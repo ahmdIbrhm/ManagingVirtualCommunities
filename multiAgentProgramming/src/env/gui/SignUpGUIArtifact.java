@@ -31,6 +31,7 @@ public class SignUpGUIArtifact extends GUIArtifact {
 		{
 			CommunitiesManager.addUser(new User(name,interests));
 			signal("focusMain",name);
+			display.setVisible(false);
 		}
 		else
 		{

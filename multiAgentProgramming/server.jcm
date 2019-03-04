@@ -15,9 +15,8 @@
 mas multiAgentProgramming {
 	agent serverAgent
 	agent clientAgent
-//	agent assistantCopyAndPaste
+	agent assistantCopyAndPaste
 	workspace sports{
-		
 	}
 }
 

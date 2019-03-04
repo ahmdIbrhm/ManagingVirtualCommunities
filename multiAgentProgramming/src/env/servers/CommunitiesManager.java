@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import cartago.Artifact;
 import cartago.OPERATION;
 import communities.Community;
+import communities.Mailbox;
 import users.User;
+import utils.Message;
 
 public class CommunitiesManager extends Artifact{
 	public static ArrayList<Community> communities=new ArrayList<Community>();
@@ -17,6 +19,13 @@ public class CommunitiesManager extends Artifact{
 	@OPERATION void showCommunities()
 	{
 		System.out.println("Communities");
+	}
+	@OPERATION void sendMessage(String communityId,String from,String to,String message)
+	{
+		User userFrom=getUser(from);
+		User userTo=getUser(to);
+		Community community=getCommunity(communityId);
+		((Mailbox)(community)).addMessage(new Message(userFrom,userTo,message));
 	}
 	
 	public static User getUser(String name)
@@ -47,5 +56,26 @@ public class CommunitiesManager extends Artifact{
 			}
 		}
 		return communitiesList;
+	}
+	public static Community getCommunity(String communityId)
+	{
+		for(int i=0;i<communities.size();i++)
+		{
+			if(communities.get(i).getCommunityId().equals(communityId))
+				return communities.get(i);
+		}
+		return null;
+	}
+	
+	public static ArrayList<Message> getMessagesForUserInMailbox(String communityId,String userName)
+	{
+		for(int i=0;i<communities.size();i++)
+		{
+			if(communities.get(i).getCommunityId().equals(communityId))
+			{
+				return ((Mailbox)communities.get(i)).getMessages(userName);
+			}
+		}
+		return null;
 	}
 }

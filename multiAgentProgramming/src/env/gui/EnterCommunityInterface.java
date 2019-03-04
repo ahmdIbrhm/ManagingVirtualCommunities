@@ -28,7 +28,7 @@ public class EnterCommunityInterface extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox(CommunitiesManager.getUserCommunities(name).toArray());
+		comboBox = new JComboBox(CommunitiesManager.getUserCommunities(name).toArray());
 		comboBox.setBounds(66, 61, 99, 20);
 		contentPane.add(comboBox);
 		

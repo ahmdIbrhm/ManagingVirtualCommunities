@@ -15,8 +15,9 @@ import users.User;
 
 public class EnterCommunityGUIArtifact extends GUIArtifact {
 	private EnterCommunityInterface display;
-	
+	String name;
 	public void init(String name) {
+		this.name=name;
     	display = new EnterCommunityInterface(name);
 		linkActionEventToOp(display.btnEnter,"enterCommunity");
 		display.setVisible(true);
@@ -27,12 +28,15 @@ public class EnterCommunityGUIArtifact extends GUIArtifact {
 		for(int i=0;i<CommunitiesManager.communities.size();i++)
 		{
 			Community community=CommunitiesManager.communities.get(i);
+			System.out.println(community);
 			if(community.getCommunityId().equals(communityId))
 			{
 				if(community instanceof Voting)
 					signal("focusEnterCommunityVoting",community.getCommunityId());
 				else if(community instanceof Mailbox)
-					signal("focusEnterCommunityMailbox",community.getCommunityId());
+					{
+						signal("focusEnterCommunityMailbox",community.getCommunityId(),name);
+					}
 				else if(community instanceof Forum)
 					signal("focusEnterCommunityForum",community.getCommunityId());
 			}
