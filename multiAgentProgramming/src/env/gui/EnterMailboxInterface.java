@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 
 import servers.CommunitiesManager;
+import users.User;
 import utils.Message;
 
 import javax.swing.JComboBox;
@@ -18,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EnterMailboxInterface extends JFrame {
 
@@ -27,6 +30,7 @@ public class EnterMailboxInterface extends JFrame {
 	public JComboBox comboBox;
 	public JTextArea textArea;
 	public JTextPane textPane;
+	private JButton btnClose;
 	public EnterMailboxInterface(String userName,String communityId) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -35,7 +39,7 @@ public class EnterMailboxInterface extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		comboBox = new JComboBox(CommunitiesManager.getCommunity(communityId).getMembers().toArray());
+		comboBox = new JComboBox((removeFromList(CommunitiesManager.getCommunity(communityId).getMembers(),userName)).toArray());
 		comboBox.setBounds(72, 21, 91, 20);
 		contentPane.add(comboBox);
 		
@@ -56,21 +60,28 @@ public class EnterMailboxInterface extends JFrame {
 		contentPane.add(lblMyMessages);
 		
 		textPane = new JTextPane();
-		textPane.setText(fromArrayListToString(CommunitiesManager.getMessagesForUserInMailbox(communityId, userName)));
 		textPane.setBounds(10, 173, 414, 77);
 		contentPane.add(textPane);
+		
+		btnClose = new JButton("Close");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnClose.setBounds(301, 130, 123, 23);
+		contentPane.add(btnClose);
 	}
-	public String fromArrayListToString(ArrayList<Message> list)
+	public ArrayList<User> removeFromList(ArrayList<User> list,String name)
 	{
-		String string="";
+		ArrayList<User> listWithoutCurrentUser=new ArrayList<User>();
 		for(int i=0;i<list.size();i++)
 		{
-			Message messageObject=list.get(i);
-			String messageString="From: "+messageObject.getUserFrom();
-			messageString+="\n Message: "+messageObject.getMessage();
-			messageString+="\n--------------------------------------";
-			string+=messageString;
+			if(!list.get(i).getName().equals(name))
+			{
+				listWithoutCurrentUser.add(list.get(i));
+			}
 		}
-		return string;
+		return listWithoutCurrentUser;
 	}
 }

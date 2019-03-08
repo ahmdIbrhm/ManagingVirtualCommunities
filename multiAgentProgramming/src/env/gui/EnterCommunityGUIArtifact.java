@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import cartago.INTERNAL_OPERATION;
+import cartago.OPERATION;
 import cartago.tools.GUIArtifact;
 import communities.Community;
 import communities.Forum;
@@ -20,15 +21,19 @@ public class EnterCommunityGUIArtifact extends GUIArtifact {
 		this.name=name;
     	display = new EnterCommunityInterface(name);
 		linkActionEventToOp(display.btnEnter,"enterCommunity");
+		linkActionEventToOp(display.btnLeave,"leaveCommunity");
 		display.setVisible(true);
 		this.init();
+	}
+	@OPERATION void startEnterCommunity(String name)
+	{
+		init(name);
 	}
 	@INTERNAL_OPERATION void enterCommunity(ActionEvent ev){
 		String communityId=display.comboBox.getSelectedItem().toString();
 		for(int i=0;i<CommunitiesManager.communities.size();i++)
 		{
 			Community community=CommunitiesManager.communities.get(i);
-			System.out.println(community);
 			if(community.getCommunityId().equals(communityId))
 			{
 				if(community instanceof Voting)
@@ -41,6 +46,13 @@ public class EnterCommunityGUIArtifact extends GUIArtifact {
 					signal("focusEnterCommunityForum",community.getCommunityId());
 			}
 		}
+		display.setVisible(false);
+    }  
+	
+	@INTERNAL_OPERATION void leaveCommunity(ActionEvent ev){
+		String communityId=display.comboBox.getSelectedItem().toString();
+		signal("leaveCommunity",communityId,name);
+		display.setVisible(false);
     }  
 
 

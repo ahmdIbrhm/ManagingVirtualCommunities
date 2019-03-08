@@ -36,7 +36,7 @@ public class ShowCommunitiesInterface extends JFrame {
 		textPane.setBounds(49, 150, 320, 100);
 		contentPane.add(textPane);
 		
-		comboBox = new JComboBox(CommunitiesManager.communities.toArray());
+		comboBox = new JComboBox(CommunitiesManager.getUnjoinedCommunities(name).toArray());
 		comboBox.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {

@@ -97,7 +97,16 @@ public class CreateMailboxCommunityInterface extends JFrame {
 		contentPane.add(scrollPane);
 		
 		btnConfirm = new JButton("Confirm");
-		btnConfirm.setBounds(116, 225, 89, 23);
+		btnConfirm.setBounds(228, 225, 89, 23);
 		contentPane.add(btnConfirm);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnCancel.setBounds(88, 225, 89, 23);
+		contentPane.add(btnCancel);
 	}
 }

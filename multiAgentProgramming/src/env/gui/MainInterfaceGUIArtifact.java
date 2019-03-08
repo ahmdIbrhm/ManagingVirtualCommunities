@@ -13,7 +13,8 @@ public class MainInterfaceGUIArtifact extends GUIArtifact {
     	display = new MainInterface(name);
 		linkActionEventToOp(display.btnShowCommunities,"showCommunities");
 		linkActionEventToOp(display.btnCreateMailbox,"createMailbox");
-		linkActionEventToOp(display.btnMyCommunities,"myCommunities");
+		linkActionEventToOp(display.btnEnterCommunity,"myCommunities");
+		linkActionEventToOp(display.btnOwnedCommunities,"ownedCommunities");
 		display.setVisible(true);
 		this.init();
 	}
@@ -26,8 +27,9 @@ public class MainInterfaceGUIArtifact extends GUIArtifact {
 		signal("focusCreateMailbox",name);
     }
 	@INTERNAL_OPERATION void myCommunities(ActionEvent ev){
-//		System.out.println("he");
 		signal("focusEnterCommunity",name);
     }
-	
+	@INTERNAL_OPERATION void ownedCommunities(ActionEvent ev){
+		signal("focusOwnedCommunities",name);
+    }
 }

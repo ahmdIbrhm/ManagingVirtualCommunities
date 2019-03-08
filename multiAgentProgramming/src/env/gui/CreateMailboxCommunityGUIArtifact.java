@@ -5,10 +5,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import cartago.INTERNAL_OPERATION;
+import cartago.OPERATION;
 import cartago.tools.GUIArtifact;
-import communities.Mailbox;
-import servers.CommunitiesManager;
-import users.User;
 
 public class CreateMailboxCommunityGUIArtifact extends GUIArtifact {
 	CreateMailboxCommunityInterface createCommunityInterface;
@@ -21,18 +19,36 @@ public class CreateMailboxCommunityGUIArtifact extends GUIArtifact {
 		linkActionEventToOp(createCommunityInterface.btnConfirm,"createCommunity");
 		this.init();
 	}
+	@OPERATION void start(String name)
+	{
+		init(name);
+	}
 	@INTERNAL_OPERATION void createCommunity(ActionEvent ev){
 		int maximumNumberOfMessages=(Integer)(createCommunityInterface.spinner.getValue());
 		int messagesPeriod=(Integer)(createCommunityInterface.slider.getValue());
 		String communityId=createCommunityInterface.textFieldCommunityId.getText();
-		User createdBy=CommunitiesManager.getUser(name);
+		String createdBy=name;
 		int topicsIndex=createCommunityInterface.list.getSelectedIndex();
-		
-		String topic=SignUp.globalInterests[topicsIndex];
-
-		Mailbox mailbox=new Mailbox(maximumNumberOfMessages, messagesPeriod, communityId, createdBy, topic);
-		CommunitiesManager.communities.add(mailbox);
-		JOptionPane.showMessageDialog(createCommunityInterface, "Added");
-		createCommunityInterface.setVisible(false);
+		if(topicsIndex!=-1 && !communityId.trim().equals(""))
+		{
+			String topic=SignUp.globalInterests[topicsIndex];
+			signal("createMailbox",maximumNumberOfMessages, messagesPeriod, communityId, createdBy, topic);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(createCommunityInterface, "Error");
+		}
     }
+	@OPERATION void mailboxCreatedSuccesfully(boolean ok)
+	{
+		if(ok)
+		{
+			JOptionPane.showMessageDialog(createCommunityInterface, "Added");
+			createCommunityInterface.setVisible(false);
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(createCommunityInterface, "Id already exists");
+		}
+	}
 }

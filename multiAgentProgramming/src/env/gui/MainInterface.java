@@ -30,7 +30,8 @@ public class MainInterface extends JFrame{
 	public AbstractButton btnCreateVoting; 
 	public AbstractButton btnCreateForum;
 	public AbstractButton btnShowCommunities;
-	public AbstractButton btnMyCommunities;
+	public AbstractButton btnEnterCommunity;
+	public AbstractButton btnOwnedCommunities;
 
 	public MainInterface(String name) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,9 +70,14 @@ public class MainInterface extends JFrame{
 		tabbedPane.addTab("Profile", null, panel_1, null);
 		panel_1.setLayout(null);
 		
-		btnMyCommunities = new JButton("My Communities");
-		btnMyCommunities.setBounds(134, 5, 135, 40);
-		panel_1.add(btnMyCommunities);
+		btnEnterCommunity = new JButton("Enter Community");
+		btnEnterCommunity.setBounds(134, 5, 135, 40);
+		panel_1.add(btnEnterCommunity);
+		
+		btnOwnedCommunities = new JButton("Owned Communities");
+		btnOwnedCommunities.setBounds(134, 56, 135, 40);
+		panel_1.add(btnOwnedCommunities);
+		
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Connection", null, panel_2, null);

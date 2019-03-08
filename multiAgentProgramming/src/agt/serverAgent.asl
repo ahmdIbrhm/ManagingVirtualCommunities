@@ -6,10 +6,14 @@
 
 !setup_and_monitor.
 /* Plans */
-+!setup_and_monitor <-createWorkspace("server"); joinWorkspace("server",Id);!setupArtifacts.
-+!setupArtifacts <- makeArtifact("manager", "servers.CommunitiesManager",[],Id);focus(Id);showCommunities.
-+message(CommunityId,From,To,Message) <- sendMessage(CommunityId,From,To,Message).
-//println(CommunityId);println(From);println(To);println(Message).
++!setup_and_monitor <-joinWorkspace("sports",Id);!setupArtifacts.
++!setupArtifacts <- makeArtifact("manager", "servers.CommunitiesManager",[],Id);+idManager(Id);focus(Id).
++!sendMessage(CommunityId,From,To,Message): idManager(Id) <- focus(Id);sendMessage(CommunityId,From,To,Message).
++!createMailbox(MaximumNumberOfMessages, MessagesPeriod, CommunityId, CreatedBy, Topic) <- 
+					createMailbox(MaximumNumberOfMessages, MessagesPeriod, CommunityId, CreatedBy, Topic).
++!deleteCommunity(CommunityId) <- deleteCommunity(CommunityId).
+
++!leaveCommunity(CommunityId,UserName) <- leaveCommunity(CommunityId,UserName).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

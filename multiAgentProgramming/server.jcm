@@ -12,10 +12,14 @@
     <DATE>
 */
 
-mas multiAgentProgramming {
+mas multiagentprogramming{
 	agent serverAgent
-	agent clientAgent
-	agent assistantCopyAndPaste
+//	
+	agent clientAgent{
+//		instances:2
+	}
+//	agent assistantCopyAndPaste
+//	
 	workspace sports{
 	}
 }

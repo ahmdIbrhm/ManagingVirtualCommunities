@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import cartago.INTERNAL_OPERATION;
+import cartago.OPERATION;
 import cartago.tools.GUIArtifact;
 import servers.CommunitiesManager;
 import users.User;
@@ -19,17 +20,14 @@ public class ShowCommunitiesGUIArtifact extends GUIArtifact {
 		display.setVisible(true);
 		this.init();
 	}
+	@OPERATION void startShowCommunity(String name)
+	{
+		init(name);
+	}
 	@INTERNAL_OPERATION void joinCommunity(ActionEvent ev){
-		String commmunityId=display.comboBox.getSelectedItem().toString();
-		for(int i=0;i<CommunitiesManager.communities.size();i++)
-		{
-			if(CommunitiesManager.communities.get(i).getCommunityId().equals(commmunityId))
-			{
-				CommunitiesManager.communities.get(i).getMembers().add(CommunitiesManager.getUser(name));
-				System.out.println(CommunitiesManager.communities.get(i).getMembers());
-				JOptionPane.showMessageDialog(display.contentPane,"Joined");
-				display.setVisible(false);
-			}
-		}
+		String communityId=display.comboBox.getSelectedItem().toString();
+		signal("addToCommunity",name,communityId);
+		JOptionPane.showMessageDialog(display.contentPane,"Joined");
+		display.setVisible(false);
     }
 }
