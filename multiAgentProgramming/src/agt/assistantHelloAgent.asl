@@ -11,6 +11,7 @@
 	lookupArtifact("manager",Id2);focus(Id2);+idManager(Id2).
 
 +focusMain(UserName) <- +userName(UserName).concat("main",UserName,Result);makeArtifact(Result,"gui.MainInterfaceGUIArtifact",[UserName],Id1);focus(Id1).
+
 +focusCreateMailbox(UserName): idCreateMailbox(Id2)<-focus(Id2);start(UserName).
 +focusCreateMailbox(UserName) <-.concat("createMailbox1",UserName,Result);makeArtifact(Result,"gui.CreateMailboxCommunityGUIArtifact",[UserName],Id2);focus(Id2);+idCreateMailbox(Id2).
 

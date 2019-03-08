@@ -14,7 +14,7 @@ public class CreateMailboxCommunityGUIArtifact extends GUIArtifact {
 	public void init(String name)
 	{
 		this.name=name;
-		createCommunityInterface=new CreateMailboxCommunityInterface();
+		createCommunityInterface=new CreateMailboxCommunityInterface(name);
 		createCommunityInterface.setVisible(true);
 		linkActionEventToOp(createCommunityInterface.btnConfirm,"createCommunity");
 		this.init();

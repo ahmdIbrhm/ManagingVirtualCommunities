@@ -18,10 +18,6 @@ public class CommunitiesManager extends Artifact{
 	public static ArrayList<Community> communities=new ArrayList<Community>();
 	public static ArrayList<User> users=new ArrayList<User>();
 	
-	public void addCommunity(Community community)
-	{
-		communities.add(community);
-	}
 	@OPERATION void showCommunities()
 	{
 		System.out.println("Communities");
@@ -98,7 +94,7 @@ public class CommunitiesManager extends Artifact{
 		else
 		{
 			signal("mailboxCreatedFalse",userName);
-		}		
+		}
 	}
 	public boolean communityNameOk(String name)
 	{

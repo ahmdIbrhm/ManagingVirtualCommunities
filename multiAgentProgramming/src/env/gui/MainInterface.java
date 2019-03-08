@@ -34,6 +34,7 @@ public class MainInterface extends JFrame{
 	public AbstractButton btnOwnedCommunities;
 
 	public MainInterface(String name) {
+		setTitle(name);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -71,12 +72,16 @@ public class MainInterface extends JFrame{
 		panel_1.setLayout(null);
 		
 		btnEnterCommunity = new JButton("Enter Community");
-		btnEnterCommunity.setBounds(134, 5, 135, 40);
+		btnEnterCommunity.setBounds(100, 5, 169, 23);
 		panel_1.add(btnEnterCommunity);
 		
 		btnOwnedCommunities = new JButton("Owned Communities");
-		btnOwnedCommunities.setBounds(134, 56, 135, 40);
+		btnOwnedCommunities.setBounds(100, 44, 169, 23);
 		panel_1.add(btnOwnedCommunities);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setBounds(100, 85, 169, 23);
+		panel_1.add(btnNewButton_1);
 		
 		
 		JPanel panel_2 = new JPanel();

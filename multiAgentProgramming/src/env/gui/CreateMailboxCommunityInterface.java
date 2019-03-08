@@ -36,7 +36,8 @@ public class CreateMailboxCommunityInterface extends JFrame {
 	public final JSpinner spinner;
 	public final JSlider slider;
 
-	public CreateMailboxCommunityInterface() {
+	public CreateMailboxCommunityInterface(String name) {
+		setTitle(name);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
