@@ -14,11 +14,10 @@
 
 mas multiagentprogramming{
 	agent serverAgent
-	
-	agent assistantHelloAgent{
-//		instances:2
+	agent assistantHelloAgent
+	agent assistantCopyAndPaste{
+		instances:1
 	}
-//	agent assistantCopyAndPaste
 	workspace sports{
 	}
 }

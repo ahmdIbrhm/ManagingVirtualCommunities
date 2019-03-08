@@ -27,7 +27,15 @@ public class ShowCommunitiesGUIArtifact extends GUIArtifact {
 	@INTERNAL_OPERATION void joinCommunity(ActionEvent ev){
 		String communityId=display.comboBox.getSelectedItem().toString();
 		signal("addToCommunity",name,communityId);
-		JOptionPane.showMessageDialog(display.contentPane,"Joined");
 		display.setVisible(false);
     }
+	@OPERATION void resultOfJoiningCommunity(String result)
+	{
+		if(result.equals("yes"))
+			JOptionPane.showMessageDialog(display, "Joined");
+		else if(result.equals("no"))
+			JOptionPane.showMessageDialog(display, "Can't join, different interests!");
+		else
+			JOptionPane.showMessageDialog(display, "What happened?");
+	}
 }

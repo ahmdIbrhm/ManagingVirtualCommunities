@@ -18,13 +18,13 @@ public class Community extends Artifact {
 	 {
 		 
 	 }
-	 public Community(String communityId, User createdBy,String topics) 
+	 public Community(String communityId, User createdBy,String topic) 
 	 {
 		this.communityId = communityId;
 		this.createdBy = createdBy;
 		members=new ArrayList<User>();
 		members.add(createdBy);
-		this.topic = topics;
+		this.topic = topic;
 	}
 
 	 public void disconnect()
@@ -43,11 +43,11 @@ public class Community extends Artifact {
 		public void setCreatedBy(User createdBy) {
 			this.createdBy = createdBy;
 		}
-		public String getTopics() {
+		public String getTopic() {
 			return topic;
 		}
-		public void setTopics(String topics) {
-			this.topic = topics;
+		public void setTopic(String topic) {
+			this.topic = topic;
 		}
 		public ArrayList<User> getMembers() {
 			return members;
@@ -55,6 +55,13 @@ public class Community extends Artifact {
 		@Override
 		public String toString() {
 			return communityId;
+		}
+		public String getDescription()
+		{
+			String s= communityId+" community has "+getTopic()+" as it's topic.";
+			s+="\n It contains "+getMembers().size()+" members: ";
+			s+="\n "+getMembers();
+			return s;
 		}
 	 
 //	 message board that captures the content of community

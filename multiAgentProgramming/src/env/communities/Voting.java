@@ -21,7 +21,7 @@ public class Voting extends Community {
 	@Override
 	public String toString() {
 		return "Voting [map=" + map + ", getCommunityId()=" + getCommunityId() + ", getCreatedBy()=" + getCreatedBy()
-				+ ", getTopics()=" + getTopics() + "]";
+				+ ", getTopics()=" + getTopic() + "]";
 	}
 	
 	

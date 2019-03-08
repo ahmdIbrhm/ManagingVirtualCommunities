@@ -24,21 +24,53 @@ public class CommunitiesManager extends Artifact{
 	}
 	@OPERATION void sendMessage(String communityId,String from,String to,String message)
 	{
-		User userFrom=getUser(from);
-		User userTo=getUser(to);
 		Community community=getCommunity(communityId);
-		((Mailbox)(community)).addMessage(new Message(userFrom,userTo,message));
-
+		if(to.equals("All"))
+		{
+			for(int i=0;i<community.getMembers().size();i++)
+			{
+				if(!community.getMembers().get(i).getName().equals(from))
+					sendMessage(communityId, from, community.getMembers().get(i).getName(), message);
+			}
+		}
+		else
+		{
+			User userFrom=getUser(from);
+			User userTo=getUser(to);
+			((Mailbox)(community)).addMessage(new Message(userFrom,userTo,message));
+		}
 	}
 
 	@OPERATION void enterCommunity(String userId,String communityId)
 	{
-		for(int i=0;i<communities.size();i++)
+		boolean userHaveSameInterestAsCommunity=false;
+		User user=getUser(userId);
+		Community community=getCommunity(communityId);
+		for(int i=0;i<user.getInterests().length;i++)
 		{
-			if(communities.get(i).getCommunityId().equals(communityId))
+			if(user.getInterests()[i].equals(community.getTopic()))
 			{
-				communities.get(i).getMembers().add(getUser(userId));
+				userHaveSameInterestAsCommunity=true;
 			}
+		}
+		if(userHaveSameInterestAsCommunity)
+		{
+			for(int i=0;i<communities.size();i++)
+			{
+				if(communities.get(i).getCommunityId().equals(communityId))
+				{
+					communities.get(i).getMembers().add(getUser(userId));
+				}
+			}
+			signal("joinedResult",userId,communityId,"yes");
+			if(getCommunity(communityId) instanceof Mailbox)
+			{
+				signal("numberOfMembersIncreased",communityId,getCommunity(communityId).getMembers().size());
+			}
+		}
+		else
+		{
+			signal("joinedResult",userId,communityId,"no");
 		}
 	}
 	@OPERATION void leaveCommunity(String communityId,String userId)
@@ -90,6 +122,7 @@ public class CommunitiesManager extends Artifact{
 				}
 			}
 			signal("mailboxCreatedTrue",userName);
+			signal("mailboxCreated",communityId);
 		}
 		else
 		{

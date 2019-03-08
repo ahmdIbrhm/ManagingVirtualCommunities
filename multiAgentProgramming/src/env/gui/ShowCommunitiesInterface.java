@@ -23,6 +23,7 @@ public class ShowCommunitiesInterface extends JFrame {
 	public JPanel contentPane;
 	public AbstractButton btnJoinCommunity;
 	public JComboBox comboBox;
+	private JButton btnClose;
 
 	public ShowCommunitiesInterface(String name) {
 		setTitle(name);
@@ -34,7 +35,7 @@ public class ShowCommunitiesInterface extends JFrame {
 		contentPane.setLayout(null);
 		
 		final JTextPane textPane = new JTextPane();
-		textPane.setBounds(49, 150, 320, 100);
+		textPane.setBounds(10, 150, 320, 100);
 		contentPane.add(textPane);
 		
 		comboBox = new JComboBox(CommunitiesManager.getUnjoinedCommunities(name).toArray());
@@ -46,7 +47,7 @@ public class ShowCommunitiesInterface extends JFrame {
 				{
 					if(CommunitiesManager.communities.get(i).getCommunityId().equals(commmunityId))
 					{
-						textPane.setText(CommunitiesManager.communities.get(i).toString());
+						textPane.setText(CommunitiesManager.communities.get(i).getDescription());
 					}
 				}
 			}
@@ -57,5 +58,14 @@ public class ShowCommunitiesInterface extends JFrame {
 		btnJoinCommunity = new JButton("Join");
 		btnJoinCommunity.setBounds(280, 51, 89, 23);
 		contentPane.add(btnJoinCommunity);
+		
+		btnClose = new JButton("Close");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnClose.setBounds(340, 227, 89, 23);
+		contentPane.add(btnClose);
 	}
 }

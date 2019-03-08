@@ -79,9 +79,9 @@ public class MainInterface extends JFrame{
 		btnOwnedCommunities.setBounds(100, 44, 169, 23);
 		panel_1.add(btnOwnedCommunities);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(100, 85, 169, 23);
-		panel_1.add(btnNewButton_1);
+		JButton btnChangeInterests = new JButton("Change Interests");
+		btnChangeInterests.setBounds(100, 85, 169, 23);
+		panel_1.add(btnChangeInterests);
 		
 		
 		JPanel panel_2 = new JPanel();

@@ -19,7 +19,7 @@ public class CreateMailboxCommunityGUIArtifact extends GUIArtifact {
 		linkActionEventToOp(createCommunityInterface.btnConfirm,"createCommunity");
 		this.init();
 	}
-	@OPERATION void start(String name)
+	@OPERATION void startInterface(String name)
 	{
 		init(name);
 	}

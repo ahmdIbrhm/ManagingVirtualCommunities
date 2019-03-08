@@ -12,7 +12,7 @@
 
 +focusMain(UserName) <- +userName(UserName).concat("main",UserName,Result);makeArtifact(Result,"gui.MainInterfaceGUIArtifact",[UserName],Id1);focus(Id1).
 
-+focusCreateMailbox(UserName): idCreateMailbox(Id2)<-focus(Id2);start(UserName).
++focusCreateMailbox(UserName): idCreateMailbox(Id2)<-focus(Id2);startInterface(UserName).
 +focusCreateMailbox(UserName) <-.concat("createMailbox1",UserName,Result);makeArtifact(Result,"gui.CreateMailboxCommunityGUIArtifact",[UserName],Id2);focus(Id2);+idCreateMailbox(Id2).
 
 +focusShowCommunities(UserName) :idShowCommunities(Id3) <- focus(Id3);startShowCommunity(UserName).
@@ -29,16 +29,27 @@
 +mailboxCreatedTrue(UserName): userName(Name) & Name=UserName & idCreateMailbox(Id) <- focus(Id); mailboxCreatedSuccesfully(true).
 +mailboxCreatedFalse(UserName): userName(Name) & Name=UserName & idCreateMailbox(Id) <- focus(Id); mailboxCreatedSuccesfully(false).
 
-+addToCommunity(UserName,CommunityId): idManager(Id) <- focus(Id);addToCommunity(UserName,CommunityId).
++addToCommunity(UserName,CommunityId)<- !addToCommunity(UserName,CommunityId).
++!addToCommunity(UserName,CommunityId): idManager(Id) <- focus(Id);addToCommunity(UserName,CommunityId).
 
-+sendMessage(CommunityId,UserName,UserTo,Message)<-.send(serverAgent,achieve,sendMessage(CommunityId,UserName,UserTo,Message)).
++sendMessage(CommunityId,UserName,UserTo,Message)<-!sendMessage(CommunityId,UserName,UserTo,Message).
++!sendMessage(CommunityId,UserName,UserTo,Message) <- .send(serverAgent,achieve,sendMessage(CommunityId,UserName,UserTo,Message)).
 
 +focusOwnedCommunities(UserName) : idOwnedCommunities(Id2) <- focus(Id2);startOwned(UserName).
 +focusOwnedCommunities(UserName) <-.concat("ownedCommunities1",UserName,Result);makeArtifact(Result,"gui.OwnedCommunitiesGUIArtifact",[UserName],Id2);focus(Id2);+idOwnedCommunities(Id2).
 
-+leaveCommunity(CommunityId,UserName) <- .send(serverAgent,achieve,leaveCommunity(CommunityId,UserName)).
++leaveCommunity(CommunityId,UserName) <- !leaveCommunity(CommunityId,UserName).
++!leaveCommunity(CommunityId,UserName) <- .send(serverAgent,achieve,leaveCommunity(CommunityId,UserName)).
+
++joinedResult(UserId,CommunityId,Result): idShowCommunities(Id3) <-  focus(Id3);resultOfJoiningCommunity(Result).
 
 +deleteCommunity(CommunityId) <- .send(serverAgent,achieve,deleteCommunity(CommunityId)).
+//--------------- JUST FOR THIS AGENT ---------------------------------
+
++mailboxCreated(MailboxId):userName(MyName) <- println("HEY");!addToCommunity(MyName,MailboxId).
+
++numberOfMembersIncreased(CommunityId,Number): Number > 2 <- !sayHelloToAllAndExit(CommunityId).
++!sayHelloToAllAndExit(MailboxId): userName(MyName) <- !sendMessage(MailboxId,MyName,"All","Hello");!leaveCommunity(MailboxId,MyName).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
