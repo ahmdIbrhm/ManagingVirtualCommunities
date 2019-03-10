@@ -1,6 +1,8 @@
 package servers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -11,6 +13,7 @@ import communities.Community;
 import communities.Forum;
 import communities.Mailbox;
 import communities.Voting;
+import jason.stdlib.println;
 import users.User;
 import utils.Message;
 
@@ -129,6 +132,30 @@ public class CommunitiesManager extends Artifact{
 			signal("mailboxCreatedFalse",userName);
 		}
 	}
+	@OPERATION void createVoting(String communityId,String userName,String topic,String indices)
+	{
+		
+		
+		if(communityNameOk(communityId))
+		{
+			User createdBy=getUser(userName);
+		    Voting voting=new Voting( communityId, createdBy, topic,indices);
+			communities.add(voting);
+			for(int i=0;i<users.size();i++)
+			{
+				if(users.get(i).getName().equals(createdBy.getName()))
+				{
+					users.get(i).getOwnedCommunities().add(voting);
+				}
+			}
+			signal("votingCreatedTrue",userName);
+			signal("votingCreated",communityId);
+		}
+		else
+		{
+			signal("votingCreatedFalse",userName);
+		}
+	}
 	public boolean communityNameOk(String name)
 	{
 		for(int i=0;i<communities.size();i++)
@@ -154,6 +181,27 @@ public class CommunitiesManager extends Artifact{
 		Community community = getCommunity(communityId);
 		community.getCreatedBy().getOwnedCommunities().remove(community);
 		communities.remove(community);
+	}
+	@OPERATION void confirm(String communityId,String userName) {
+		Voting community =(Voting) getCommunity(communityId);
+		System.out.println(community.diplay());
+		
+	}
+	@OPERATION void addToMap(String communityId,String name,String question,String response)
+	{
+		Map<String,String> result=new HashMap<String,String>() ;
+		result.put(question, response);
+		User user= getUser(name);
+		Voting community =(Voting) getCommunity(communityId);
+		System.out.println("Hahadddddd");
+		if(community.map.containsKey(user)) {
+			community.map.get(user).add(result);
+		}
+		else {
+			community.map.put(user,new ArrayList<Map<String,String>>());
+			community.map.get(user).add(result);
+		}
+		
 	}
 	
 	public static void addUser(User user)

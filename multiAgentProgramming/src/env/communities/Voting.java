@@ -1,27 +1,47 @@
 package communities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.PrimitiveIterator.OfInt;
+import java.util.stream.IntStream;
 
 import users.User;
 
 public class Voting extends Community {
-	private Map<String, ArrayList<String>> map;
-	public Voting(String communityId, User createdBy, String topic, Map<String, ArrayList<String>> map) 
+	public static String[] questionTab= {"question1","question2","question3","question4","question5","question6"};
+	public static ArrayList<String> question=new ArrayList<String>();
+	private String indices;
+	public Map<User,ArrayList<Map<String,String>>> map=new HashMap<>();
+	public Voting(String communityId, User createdBy, String topic, String indices) 
 	{
 		super(communityId, createdBy, topic);
-		this.map=map;
+		this.indices=indices;
+		String delimiter = "\\.";
+		for(int i=0;i<indices.split(delimiter).length;i++) {
+			question.add(indices.split(delimiter)[i]);
+		}
 	}
-	public Map<String, ArrayList<String>> getMap() {
-		return map;
+	
+	public ArrayList<String> getQuestion() {
+		return question;
 	}
-	public void setMap(Map<String, ArrayList<String>> map) {
-		this.map = map;
+
+
+	public void setQuestion(ArrayList<String> question) {
+		this.question = question;
 	}
-	@Override
-	public String toString() {
+
+
+	
+	public String diplay() {
 		return "Voting [map=" + map + ", getCommunityId()=" + getCommunityId() + ", getCreatedBy()=" + getCreatedBy()
-				+ ", getTopics()=" + getTopic() + "]";
+				+ "]";
+	}
+	
+	public String toString() {
+		return getCommunityId();
+		
 	}
 	
 	

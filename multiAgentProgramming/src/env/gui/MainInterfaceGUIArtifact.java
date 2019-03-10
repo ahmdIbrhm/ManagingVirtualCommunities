@@ -13,6 +13,7 @@ public class MainInterfaceGUIArtifact extends GUIArtifact {
     	display = new MainInterface(name);
 		linkActionEventToOp(display.btnShowCommunities,"showCommunities");
 		linkActionEventToOp(display.btnCreateMailbox,"createMailbox");
+		linkActionEventToOp(display.btnCreateVoting,"createVoting");
 		linkActionEventToOp(display.btnEnterCommunity,"myCommunities");
 		linkActionEventToOp(display.btnOwnedCommunities,"ownedCommunities");
 		display.setVisible(true);
@@ -25,6 +26,9 @@ public class MainInterfaceGUIArtifact extends GUIArtifact {
 	
 	@INTERNAL_OPERATION void createMailbox(ActionEvent ev){
 		signal("focusCreateMailbox",name);
+    }
+	@INTERNAL_OPERATION void createVoting(ActionEvent ev){
+		signal("focusCreateVoting",name);
     }
 	@INTERNAL_OPERATION void myCommunities(ActionEvent ev){
 		signal("focusEnterCommunity",name);

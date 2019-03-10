@@ -14,7 +14,8 @@
 
 mas multiagentprogramming{
 	agent serverAgent
-	agent assistantHelloAgent
+	agent assistantVersatileEgocentric
+	//agent assistantHelloAgent
 	agent assistantCopyAndPaste{
 		instances:1
 	}
