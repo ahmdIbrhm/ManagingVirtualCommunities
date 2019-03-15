@@ -60,7 +60,11 @@
 +addToMap(CommunityId,UserName,Question,Response) <- .send(serverAgent,achieve,addToMap(CommunityId,UserName,Question,Response)).
 
 +confirm(CommunityId,UserName) <- .send(serverAgent,achieve,confirm(CommunityId,UserName)).
+
 //--------------- JUST FOR THIS AGENT ---------------------------------
++focusChangeInterests(UserName): idChangeInterests(IdVoting4)<-focus(IdVoting4);startChangeInterests(UserName).
++focusChangeInterests(UserName) <-.concat("changeInterests1",UserName,Result);makeArtifact(Result,"gui.ChangeIntrestesGUIArtifact",[UserName],IdVoting);focus(IdVoting);+idChangeInterests(IdVoting).
++updateIntrests(UserName,Intrests) <-.send(serverAgent,achieve,updateIntrests(UserName,Intrests)).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }

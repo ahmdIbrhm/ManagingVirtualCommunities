@@ -18,6 +18,8 @@
 					addToMap(CommunityId,UserName,Question,Response).				
 +!deleteCommunity(CommunityId) <- deleteCommunity(CommunityId).
 
++!updateIntrests(UserName,Intrests) <- updateIntrests(UserName,Intrests).
+
 +!confirm(CommunityId,UserName) <- confirm(CommunityId,UserName).
 
 +!leaveCommunity(CommunityId,UserName) <- leaveCommunity(CommunityId,UserName).

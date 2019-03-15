@@ -16,6 +16,7 @@ public class MainInterfaceGUIArtifact extends GUIArtifact {
 		linkActionEventToOp(display.btnCreateVoting,"createVoting");
 		linkActionEventToOp(display.btnEnterCommunity,"myCommunities");
 		linkActionEventToOp(display.btnOwnedCommunities,"ownedCommunities");
+		linkActionEventToOp(display.btnChangeInterests,"changeInterests");
 		display.setVisible(true);
 		this.init();
 	}
@@ -35,5 +36,8 @@ public class MainInterfaceGUIArtifact extends GUIArtifact {
     }
 	@INTERNAL_OPERATION void ownedCommunities(ActionEvent ev){
 		signal("focusOwnedCommunities",name);
+    }
+	@INTERNAL_OPERATION void changeInterests(ActionEvent ev){
+		signal("focusChangeInterests",name);
     }
 }
