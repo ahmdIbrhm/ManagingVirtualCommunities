@@ -15,9 +15,7 @@
 mas multiagentprogramming{
 	agent serverAgent
 	agent assistantHelloAgent
-	agent assistantCopyAndPaste{
-		instances:1
-	}
+	agent assistantHelloAgent
 	workspace sports{
 	}
 }

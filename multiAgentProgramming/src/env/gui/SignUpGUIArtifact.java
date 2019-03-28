@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 
 import cartago.INTERNAL_OPERATION;
+import cartago.OPERATION;
+import cartago.OpFeedbackParam;
 import cartago.tools.GUIArtifact;
 import servers.CommunitiesManager;
 import users.User;
@@ -29,13 +31,21 @@ public class SignUpGUIArtifact extends GUIArtifact {
 		}
 		if(!name.trim().equals("") && interestsIndexes.length!=0)
 		{
-			CommunitiesManager.addUser(new User(name,interests));
-			signal("focusMain",name);
-			display.setVisible(false);
+			OpFeedbackParam<User> user=new OpFeedbackParam<User>();
+			user.set(new User(name,interests));
+			signal("addUser",user);
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(display.contentPane, "Error");
 		}
-    }  
+    }
+	@OPERATION void resultOfSigningUp(boolean accepted)
+	{
+		if(accepted)
+			display.setVisible(false);
+		else
+			JOptionPane.showMessageDialog(display.contentPane, "Already Exists");
+		System.out.println(CommunitiesManager.users.size());
+	}
 }

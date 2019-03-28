@@ -26,11 +26,18 @@ public class OwnedCommunitiesGUIArtifact extends GUIArtifact {
 	
 	@INTERNAL_OPERATION void deleteCommunity(ActionEvent ev){
 		String communityId=display.comboBox.getSelectedItem().toString();
-		int selectedIndex=display.comboBox.getSelectedIndex();
-		display.comboBox.removeItemAt(selectedIndex);
-		if(CommunitiesManager.getCommunity(communityId).getMembers().size()<=1)
-			signal("deleteCommunity",communityId);
-		else
-			JOptionPane.showMessageDialog(display, "Can't delete, the community has "+CommunitiesManager.getCommunity(communityId).getMembers().size()+ " members");
+		signal("deleteCommunity",communityId);
+			
     }
+	@OPERATION void deleteCommunityResults(boolean bool)
+	{
+		if(bool)
+		{
+			int selectedIndex=display.comboBox.getSelectedIndex();
+			display.comboBox.removeItemAt(selectedIndex);
+			JOptionPane.showMessageDialog(display, "Deleted");
+		}
+		else
+			JOptionPane.showMessageDialog(display, "Can't delete, the community has more than 1 member");
+	}
 }

@@ -18,6 +18,7 @@ public class User extends Artifact{
 		this.registeredCommunities = new ArrayList<Community>();
 		this.interests = interests;
 	}
+
 	 @Override
 	public String toString() {
 		 return name;

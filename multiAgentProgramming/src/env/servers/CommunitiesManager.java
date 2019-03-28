@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import cartago.Artifact;
 import cartago.OPERATION;
 import cartago.ObsProperty;
+import cartago.OpFeedbackParam;
 import communities.Community;
 import communities.Forum;
 import communities.Mailbox;
@@ -18,10 +19,6 @@ public class CommunitiesManager extends Artifact{
 	public static ArrayList<Community> communities=new ArrayList<Community>();
 	public static ArrayList<User> users=new ArrayList<User>();
 	
-	@OPERATION void showCommunities()
-	{
-		System.out.println("Communities");
-	}
 	@OPERATION void sendMessage(String communityId,String from,String to,String message)
 	{
 		Community community=getCommunity(communityId);
@@ -45,39 +42,49 @@ public class CommunitiesManager extends Artifact{
 	{
 		boolean userHaveSameInterestAsCommunity=false;
 		User user=getUser(userId);
-		Community community=getCommunity(communityId);
-		for(int i=0;i<user.getInterests().length;i++)
+		Community community = getCommunity(communityId);
+		if (!userExistInCommunity(user, community)) 
 		{
-			if(user.getInterests()[i].equals(community.getTopic()))
+			for (int i = 0; i < user.getInterests().length; i++) 
 			{
-				userHaveSameInterestAsCommunity=true;
-			}
-		}
-		if(userHaveSameInterestAsCommunity)
-		{
-			for(int i=0;i<communities.size();i++)
-			{
-				if(communities.get(i).getCommunityId().equals(communityId))
+				if (user.getInterests()[i].equals(community.getTopic())) 
 				{
-					communities.get(i).getMembers().add(getUser(userId));
+					userHaveSameInterestAsCommunity = true;
 				}
 			}
-			signal("joinedResult",userId,communityId,"yes");
-			if(getCommunity(communityId) instanceof Mailbox)
+			if (userHaveSameInterestAsCommunity) 
 			{
-				signal("numberOfMembersIncreased",communityId,getCommunity(communityId).getMembers().size());
+				for (int i = 0; i < communities.size(); i++) 
+				{
+					if (communities.get(i).getCommunityId().equals(communityId)) 
+					{
+						communities.get(i).getMembers().add(getUser(userId));
+						System.out.println("size " + communities.get(i).getMembers().size());
+					}
+				}
+				signal("joinedResult", userId, communityId, "yes");
+				if (getCommunity(communityId) instanceof Mailbox) 
+				{
+					signal("numberOfMembersIncreased", communityId, getCommunity(communityId).getMembers().size());
+				}
+			} 
+			else 
+			{
+				signal("joinedResult", userId, communityId, "no");
 			}
 		}
-		else
+	}
+	private boolean userExistInCommunity(User user,Community community)
+	{
+		for(int i=0;i<community.getMembers().size();i++)
 		{
-			signal("joinedResult",userId,communityId,"no");
+			if(community.getMembers().get(i).getName().equals(user.getName()))
+				return true;
 		}
+		return false;
 	}
 	@OPERATION void leaveCommunity(String communityId,String userId)
-	{
-		System.out.println(userId);
-		System.out.println(communityId);
-		
+	{	
 		for(int i=0;i<communities.size();i++)
 		{
 			if(communities.get(i).getCommunityId().equals(communityId))
@@ -86,7 +93,6 @@ public class CommunitiesManager extends Artifact{
 				{
 					if(communities.get(i).getMembers().get(j).getName().equals(userId))
 					{
-						System.out.println(communities.get(i));
 						communities.get(i).getMembers().remove(j);
 					}
 				}
@@ -107,26 +113,24 @@ public class CommunitiesManager extends Artifact{
 		}
 		
 	}
-	@OPERATION void createMailbox(int maximumNumberOfMessages,int messagesPeriod,String communityId,String userName,String topic)
+	@OPERATION void createMailbox(Mailbox mailbox,OpFeedbackParam<Boolean> accepted)
 	{
-		if(communityNameOk(communityId))
+		if(communityNameOk(mailbox.getCommunityId()))
 		{
-			User createdBy=getUser(userName);
-			Mailbox mailbox=new Mailbox(maximumNumberOfMessages, messagesPeriod, communityId, createdBy, topic);
 			communities.add(mailbox);
 			for(int i=0;i<users.size();i++)
 			{
-				if(users.get(i).getName().equals(createdBy.getName()))
+				if(users.get(i).getName().equals(mailbox.getCreatedBy().getName()))
 				{
 					users.get(i).getOwnedCommunities().add(mailbox);
 				}
 			}
-			signal("mailboxCreatedTrue",userName);
-			signal("mailboxCreated",communityId);
+			accepted.set(true);
+			signal("mailboxCreated",mailbox.getCommunityId());
 		}
 		else
 		{
-			signal("mailboxCreatedFalse",userName);
+			accepted.set(false);
 		}
 	}
 	public boolean communityNameOk(String name)
@@ -149,16 +153,31 @@ public class CommunitiesManager extends Artifact{
 		}
 		return null;
 	}
-	@OPERATION void deleteCommunity(String communityId)
+	@OPERATION void deleteCommunity(String communityId,OpFeedbackParam<Boolean> accepted)
 	{
 		Community community = getCommunity(communityId);
-		community.getCreatedBy().getOwnedCommunities().remove(community);
-		communities.remove(community);
+		if(community.getMembers().size()<=1)
+		{
+			community.getCreatedBy().getOwnedCommunities().remove(community);
+			communities.remove(community);
+			accepted.set(true);
+		}
+		else
+			accepted.set(false);
 	}
 	
-	public static void addUser(User user)
+	@OPERATION void addUser(User user, OpFeedbackParam<Boolean> accepted,OpFeedbackParam<String> name)
 	{
-		users.add(user);
+		if(!users.contains(user))
+		{
+			users.add(user);
+			accepted.set(true);
+			name.set(user.getName());
+		}
+		else 
+		{			
+			accepted.set(false);
+		}
 	}
 	public static ArrayList<Community> getUserCommunities(String name)
 	{

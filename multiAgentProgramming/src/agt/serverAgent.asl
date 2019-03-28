@@ -12,7 +12,7 @@
 +!createMailbox(MaximumNumberOfMessages, MessagesPeriod, CommunityId, CreatedBy, Topic) <- 
 					createMailbox(MaximumNumberOfMessages, MessagesPeriod, CommunityId, CreatedBy, Topic).
 +!deleteCommunity(CommunityId) <- deleteCommunity(CommunityId).
-
++!addUser(UserObject,Bool) <- addUser(UserObject,Bool).
 +!leaveCommunity(CommunityId,UserName) <- leaveCommunity(CommunityId,UserName).
 
 { include("$jacamoJar/templates/common-cartago.asl") }
