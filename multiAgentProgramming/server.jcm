@@ -13,7 +13,11 @@
 */
 
 mas multiagentprogramming{
+	agent serverAgent
 	agent assistantHelloAgent
+	agent assistantVersatileEgocentric
+	agent assistantVersatileEgocentric
+	
 	workspace sports{
 	}
 }
