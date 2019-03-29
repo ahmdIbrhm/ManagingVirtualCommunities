@@ -51,6 +51,23 @@
 +!manageDeleteResult(Bool):Bool==true <- deleteCommunityResults(true).
 +!manageDeleteResult(Bool):Bool==false <- deleteCommunityResults(false).
 
+//--------------- VOTING PART ---------------------------------
++focusCreateVoting(UserName): idCreateVoting(IdVoting1)<-focus(IdVoting1);startVotingInterface(UserName).
++focusCreateVoting(UserName) <-.concat("createVoting1",UserName,Result);makeArtifact(Result,"gui.CreateVotingCommunityGUIArtifact",[UserName],IdVoting);focus(IdVoting);+idCreateVoting(IdVoting).
+
++createVoting(CommunityId,CreatedBy,Topic,QuestionsIndices):idManager(Id) <- createVoting(CommunityId, CreatedBy,Topic,QuestionsIndices)[artifact_id(Id)].
+
++votingCreatedTrue(UserName): userName(Name) & Name=UserName & idCreateVoting(IdVoting1) <- focus(IdVoting1); votingCreatedSuccesfully(true).
++votingCreatedFalse(UserName): userName(Name) & Name=UserName & idCreateVoting(IdVoting1) <- focus(IdVoting1); votingCreatedSuccesfully(false).
+
+
++focusEnterCommunityVoting(CommunityId,UserName):idEnterCommunityVoting(IdVoting) <- focus(IdVoting);startVoting(UserName,CommunityId).
++focusEnterCommunityVoting(CommunityId,UserName) <- .concat("enterCommunityVoting1",CommunityId,Result1);.concat(Result1,UserName,Result);makeArtifact(Result,"gui.EnterVotingGUIArtifact",[UserName,CommunityId],IdVoting4);+idEnterCommunityVoting(IdVoting4);focus(IdVoting4).
+
++addToMap(CommunityId,UserName,Question,Response):idManager(Id) <- addToMap(CommunityId,UserName,Question,Response)[artifact_id(Id)].
+
++confirm(CommunityId,UserName):idManager(Id) <- confirm(CommunityId,UserName)[artifact_id(Id)].
+
 //--------------- JUST FOR THIS AGENT ---------------------------------
 
 +mailboxCreated(MailboxId):userName(MyName) <-!addToCommunity(MyName,MailboxId).
