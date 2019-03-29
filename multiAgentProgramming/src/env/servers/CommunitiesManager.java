@@ -1,6 +1,9 @@
 package servers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.JOptionPane;
 
@@ -12,6 +15,7 @@ import communities.Community;
 import communities.Forum;
 import communities.Mailbox;
 import communities.Voting;
+import jason.stdlib.println;
 import users.User;
 import utils.Message;
 
@@ -83,8 +87,9 @@ public class CommunitiesManager extends Artifact{
 		}
 		return false;
 	}
+
 	@OPERATION void leaveCommunity(String communityId,String userId)
-	{	
+	{
 		for(int i=0;i<communities.size();i++)
 		{
 			if(communities.get(i).getCommunityId().equals(communityId))
@@ -133,6 +138,30 @@ public class CommunitiesManager extends Artifact{
 			accepted.set(false);
 		}
 	}
+	@OPERATION void createVoting(String communityId,String userName,String topic,String indices)
+	{
+		
+		
+		if(communityNameOk(communityId))
+		{
+			User createdBy=getUser(userName);
+		    Voting voting=new Voting( communityId, createdBy, topic,indices);
+			communities.add(voting);
+			for(int i=0;i<users.size();i++)
+			{
+				if(users.get(i).getName().equals(createdBy.getName()))
+				{
+					users.get(i).getOwnedCommunities().add(voting);
+				}
+			}
+			signal("votingCreatedTrue",userName);
+			signal("votingCreated",communityId);
+		}
+		else
+		{
+			signal("votingCreatedFalse",userName);
+		}
+	}
 	public boolean communityNameOk(String name)
 	{
 		for(int i=0;i<communities.size();i++)
@@ -165,6 +194,37 @@ public class CommunitiesManager extends Artifact{
 		else
 			accepted.set(false);
 	}
+	@OPERATION void confirm(String communityId,String userName) {
+		Voting community =(Voting) getCommunity(communityId);
+		System.out.println(community.diplay());
+		
+	}
+	@OPERATION void updateIntrests(String name,String intrests) {
+		User user= getUser(name);
+		String delimiter = "\\.";
+		String[] intrestTab = new String[intrests.split(delimiter).length];
+		for(int i=0;i<intrests.split(delimiter).length;i++) {
+			intrestTab[i]=intrests.split(delimiter)[i];
+		}
+		user.setInterests(intrestTab);
+		leaveAllCommunities(user);
+		
+	}
+	@OPERATION void addToMap(String communityId,String name,String question,String response)
+	{
+		Map<String,String> result=new HashMap<String,String>() ;
+		result.put(question, response);
+		User user= getUser(name);
+		Voting community =(Voting) getCommunity(communityId);
+		if(community.map.containsKey(user)) {
+			community.map.get(user).add(result);
+		}
+		else {
+			community.map.put(user,new ArrayList<Map<String,String>>());
+			community.map.get(user).add(result);
+		}
+		
+	}
 	
 	@OPERATION void addUser(User user, OpFeedbackParam<Boolean> accepted,OpFeedbackParam<String> name)
 	{
@@ -177,6 +237,22 @@ public class CommunitiesManager extends Artifact{
 		else 
 		{			
 			accepted.set(false);
+		}
+	}
+	public void leaveAllCommunities(User user)
+	{
+		Boolean flag=false;
+		for(Community community:getUserCommunities(user.getName())) {
+			for(int i=0;i<user.getInterests().length;i++) {
+				if(community.getTopic().equals(user.getInterests()[i])) {
+					flag=true;
+				}
+			}
+			if(flag==false) {
+				leaveCommunity(community.getCommunityId(),user.getName());
+			}
+			flag=false;
+			
 		}
 	}
 	public static ArrayList<Community> getUserCommunities(String name)

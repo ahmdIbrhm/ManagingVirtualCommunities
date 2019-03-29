@@ -36,8 +36,9 @@ public class EnterCommunityGUIArtifact extends GUIArtifact {
 			Community community=CommunitiesManager.communities.get(i);
 			if(community.getCommunityId().equals(communityId))
 			{
-				if(community instanceof Voting)
-					signal("focusEnterCommunityVoting",community.getCommunityId());
+				if(community instanceof Voting) {
+					
+					signal("focusEnterCommunityVoting",community.getCommunityId(),name);}
 				else if(community instanceof Mailbox)
 					{
 						signal("focusEnterCommunityMailbox",community.getCommunityId(),name);

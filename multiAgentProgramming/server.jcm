@@ -16,6 +16,7 @@ mas multiagentprogramming{
 	agent serverAgent
 	agent assistantHelloAgent
 	agent assistantHelloAgent
+	agent assistantVersatileEgocentric
 	workspace sports{
 	}
 }

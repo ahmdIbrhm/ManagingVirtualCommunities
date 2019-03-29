@@ -32,6 +32,7 @@ public class MainInterface extends JFrame{
 	public AbstractButton btnShowCommunities;
 	public AbstractButton btnEnterCommunity;
 	public AbstractButton btnOwnedCommunities;
+	public AbstractButton btnChangeInterests;
 
 	public MainInterface(String name) {
 		setTitle(name);
@@ -79,7 +80,7 @@ public class MainInterface extends JFrame{
 		btnOwnedCommunities.setBounds(100, 44, 169, 23);
 		panel_1.add(btnOwnedCommunities);
 		
-		JButton btnChangeInterests = new JButton("Change Interests");
+		btnChangeInterests = new JButton("Change Interests");
 		btnChangeInterests.setBounds(100, 85, 169, 23);
 		panel_1.add(btnChangeInterests);
 		
