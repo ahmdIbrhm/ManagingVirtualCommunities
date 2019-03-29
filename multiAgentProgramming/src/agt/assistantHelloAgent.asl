@@ -37,7 +37,7 @@
 +!addToCommunity(UserName,CommunityId): idManager(Id) <- addToCommunity(UserName,CommunityId)[artifact_id(Id)].
 
 +sendMessage(CommunityId,UserName,UserTo,Message)<-!sendMessage(CommunityId,UserName,UserTo,Message).
-+!sendMessage(CommunityId,UserName,UserTo,Message) <- .send(serverAgent,achieve,sendMessage(CommunityId,UserName,UserTo,Message)).
++!sendMessage(CommunityId,UserName,UserTo,Message): idManager(Id) <- sendMessage(CommunityId,From,To,Message)[artifact_id(Id)].
 
 +focusOwnedCommunities(UserName) : idOwnedCommunities(Id2) <- focus(Id2);startOwned(UserName).
 +focusOwnedCommunities(UserName) <-.concat("ownedCommunities1",UserName,Result);makeArtifact(Result,"gui.OwnedCommunitiesGUIArtifact",[UserName],Id2);focus(Id2);+idOwnedCommunities(Id2).

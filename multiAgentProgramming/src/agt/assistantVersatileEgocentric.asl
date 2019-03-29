@@ -36,7 +36,7 @@
 +!addToCommunity(UserName,CommunityId): idManager(Id) <- addToCommunity(UserName,CommunityId)[artifact_id(Id)].
 
 +sendMessage(CommunityId,UserName,UserTo,Message)<-!sendMessage(CommunityId,UserName,UserTo,Message).
-+!sendMessage(CommunityId,UserName,UserTo,Message) <- .send(serverAgent,achieve,sendMessage(CommunityId,UserName,UserTo,Message)).
++!sendMessage(CommunityId,UserName,UserTo,Message): idManager(Id) <- sendMessage(CommunityId,From,To,Message)[artifact_id(Id)].
 
 +focusOwnedCommunities(UserName) : idOwnedCommunities(Id2) <- focus(Id2);startOwned(UserName).
 +focusOwnedCommunities(UserName) <-.concat("ownedCommunities1",UserName,Result);makeArtifact(Result,"gui.OwnedCommunitiesGUIArtifact",[UserName],Id2);focus(Id2);+idOwnedCommunities(Id2).
@@ -53,7 +53,7 @@
 +focusCreateVoting(UserName): idCreateVoting(IdVoting1)<-focus(IdVoting1);startVotingInterface(UserName).
 +focusCreateVoting(UserName) <-.concat("createVoting1",UserName,Result);makeArtifact(Result,"gui.CreateVotingCommunityGUIArtifact",[UserName],IdVoting);focus(IdVoting);+idCreateVoting(IdVoting).
 
-+createVoting(CommunityId,CreatedBy,Topic,QuestionsIndices) <- .send(serverAgent,achieve,createVoting(CommunityId,CreatedBy,Topic,QuestionsIndices)).
++createVoting(CommunityId,CreatedBy,Topic,QuestionsIndices):idManager(Id) <- createVoting(CommunityId, CreatedBy,Topic,QuestionsIndices)[artifact_id(Id)].
 
 +votingCreatedTrue(UserName): userName(Name) & Name=UserName & idCreateVoting(IdVoting1) <- focus(IdVoting1); votingCreatedSuccesfully(true).
 +votingCreatedFalse(UserName): userName(Name) & Name=UserName & idCreateVoting(IdVoting1) <- focus(IdVoting1); votingCreatedSuccesfully(false).
@@ -62,14 +62,14 @@
 +focusEnterCommunityVoting(CommunityId,UserName):idEnterCommunityVoting(IdVoting) <- focus(IdVoting);startVoting(UserName,CommunityId).
 +focusEnterCommunityVoting(CommunityId,UserName) <- .concat("enterCommunityVoting1",CommunityId,Result1);.concat(Result1,UserName,Result);makeArtifact(Result,"gui.EnterVotingGUIArtifact",[UserName,CommunityId],IdVoting4);+idEnterCommunityVoting(IdVoting4);focus(IdVoting4).
 
-+addToMap(CommunityId,UserName,Question,Response) <- .send(serverAgent,achieve,addToMap(CommunityId,UserName,Question,Response)).
++addToMap(CommunityId,UserName,Question,Response):idManager(Id) <- addToMap(CommunityId,UserName,Question,Response)[artifact_id(Id)].
 
-+confirm(CommunityId,UserName) <- .send(serverAgent,achieve,confirm(CommunityId,UserName)).
++confirm(CommunityId,UserName):idManager(Id) <- confirm(CommunityId,UserName)[artifact_id(Id)].
 
 //--------------- JUST FOR THIS AGENT ---------------------------------
 +focusChangeInterests(UserName): idChangeInterests(IdVoting4)<-focus(IdVoting4);startChangeInterests(UserName).
 +focusChangeInterests(UserName) <-.concat("changeInterests1",UserName,Result);makeArtifact(Result,"gui.ChangeIntrestesGUIArtifact",[UserName],IdVoting);focus(IdVoting);+idChangeInterests(IdVoting).
-+updateIntrests(UserName,Intrests) <-.send(serverAgent,achieve,updateIntrests(UserName,Intrests)).
++updateIntrests(UserName,Intrests):idManager(Id) <- updateIntrests(UserName,Intrests)[artifact_id(Id)].
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
